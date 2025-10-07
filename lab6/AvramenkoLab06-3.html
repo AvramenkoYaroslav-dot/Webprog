@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Батьківщина - Охтирка</title>
+    
+    <style>
+        /*
+        ========================================
+        CSS-стилі для сторінки та спливаючих підказок
+        ========================================
+        */
+        
+        /* Основні стилі */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #0056b3; /* Синій колір */
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        /* Стилі для галереї */
+        .photo-gallery {
+            display: flex;
+            justify-content: space-around;
+            gap: 25px;
+            flex-wrap: wrap; 
+        }
+
+        /* Контейнер для фотографії та спливаючого тексту */
+        .photo-container {
+            position: relative; 
+            width: 320px; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            background-color: white;
+        }
+
+        .photo-container:hover {
+            transform: translateY(-5px); 
+        }
+
+        .photo-container img {
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            display: block;
+        }
+
+        /* Стилі для спливаючого тексту (Tooltip) */
+        .tooltip-text {
+            visibility: hidden; 
+            opacity: 0; 
+            width: 280px;
+            background-color: #2c3e50; 
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 12px;
+            position: absolute;
+            z-index: 10; 
+            bottom: calc(100% + 15px); 
+            left: 50%;
+            transform: translateX(-50%); 
+            transition: opacity 0.4s ease-in-out, visibility 0.4s; 
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip-title {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #f1c40f; 
+            font-size: 1.1em;
+            text-align: center;
+        }
+        
+        /* Стрілка підказки */
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%; 
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: #2c3e50 transparent transparent transparent;
+        }
+
+        /* Правило, що активує появу підказки при наведенні */
+        .photo-container:hover .tooltip-text {
+            visibility: visible; 
+            opacity: 1; 
+        }
+
+        .general-info {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        
+        .general-info h2 {
+            color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Моя Батьківщина - Охтирка 🇺🇦</h1>
+    </header>
+
+    <main>
+        <p>
+            Це місця, де я народився і виріс. Вони формують мої спогади та завжди залишаються для мене джерелом натхнення. 
+            Наведіть курсор на фото, щоб дізнатися більше про Охтирку.
+        </p>
+
+        <div class="photo-gallery">
+            
+            <div class="photo-container">
+                <img src="собор.jfif" alt="Опис першого місця: Покровський собор">
+                
+                <span class="tooltip-text">
+                    <span class="tooltip-title">Святиня Охтирки - [Назва Собору/Храму]</span><br>
+                    Цей храм є історичним та духовним серцем міста. Його архітектура вражає, а історія надихає на віру та стійкість.
+                </span>
+            </div>
+
+            <div class="photo-container">
+                <img src="парк.jfif" alt="Опис другого місця: Міський парк">
+                
+                <span class="tooltip-text">
+                    <span class="tooltip-title">Зона Відпочинку - [Назва Парку/Водойми]</span><br>
+                    Тихий куточок міста, де можна насолодитися природою. Тут я любив проводити час у дитинстві, спостерігаючи за течією Ворскли (або місцевим ставком).
+                </span>
+            </div>
+
+            <div class="photo-container">
+                <img src="центр.jpg" alt="Опис третього місця: Центр Охтирки">
+                
+                <span class="tooltip-text">
+                    <span class="tooltip-title">Серце Міста - [Назва Центральної Площі]</span><br>
+                    Головний майдан Охтирки, де відбуваються всі знакові події та свята. Тут відчувається справжній пульс нашого міста.
+                </span>
+            </div>
+            
+             <div class="photo-container">
+                <img src="меморіал.jfif" alt="Опис четвертого місця: Пам'ятник/Меморіал">
+                
+                <span class="tooltip-text">
+                    <span class="tooltip-title">Меморіал Захисникам Охтирки</span><br>
+                    Це місце нагадує про героїчну стійкість та незламність духу жителів Охтирки протягом всієї історії.
+                </span>
+            </div>
+
+        </div>
+
+        <section class="general-info">
+             <h2>Чому ці місця особливі</h2>
+             <p>Охтирка — це місто з глибокою історією, яке продемонструвало свою незламність. Кожен куточок цих місць надихає та нагадує мені про моє коріння і силу рідного краю.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Виконав: Авраменко Ярослав.</p>
+    </footer>
+
+</body>
+</html>
