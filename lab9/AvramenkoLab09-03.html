@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна робота №9 - Додаткові Класи</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        /* 🖼️ Існуючий Клас: Для назви розділу/секції */
+        .розділ-назва {
+            color: #1f618d;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 30px;
+            border-bottom: 2px solid #a9cce3;
+            padding-bottom: 5px;
+        }
+
+        /* 📜 Існуючий Клас: Для основного тексту */
+        .текст-основний {
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* 📝 Існуючий Клас: Для виносок, коментарів */
+        .текст-виноска {
+            color: #888888;
+            font-size: 0.85em;
+            font-style: italic;
+            border-left: 3px solid #f7dc6f;
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+        
+        /* НОВИЙ КЛАС 4: Для елементів меню */
+        .menu {
+            list-style: none; /* Прибираємо маркери списку */
+            padding: 0;
+            margin: 15px 0;
+            background-color: #f1f1f1;
+            overflow: hidden; /* Очистка флоатів */
+        }
+        
+        .menu li {
+            float: left; /* Розміщуємо елементи в рядок */
+            padding: 10px 15px;
+            border-right: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu li:hover {
+            background-color: #ddd;
+            color: #000;
+        }
+        
+        /* НОВИЙ КЛАС 5: Для невеликих інформаційних повідомлень */
+        .small {
+            font-size: 0.75em; /* Дуже маленький розмір */
+            color: #666;
+            text-align: center;
+            margin-top: 50px;
+            padding: 10px;
+            border-top: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="розділ-назва">Демонстрація Нових Класів</h1>
+    
+    <ul class="menu">
+        <li>Головна</li>
+        <li>Про нас</li>
+        <li>Послуги</li>
+        <li>Контакти</li>
+    </ul>
+
+    <h2 class="розділ-назва">Секція 1: Про Проект</h2>
+    
+    <p class="текст-основний">
+        Це абзац основного тексту. Ми успішно інтегрували нові класи `.menu` та `.small` для розширення функціоналу стилізації документа.
+    </p>
+
+    <p class="текст-виноска">
+        Це додатковий коментар до першої секції.
+    </p>
+    
+    <h2 class="розділ-назва">Секція 2: Деталі</h2>
+    
+    <p class="текст-основний">
+        Повторне використання класу `.текст-основний` забезпечує одноманітний вигляд усіх абзаців. Зверніть увагу, що класи можна застосовувати до будь-яких блокових елементів.
+    </p>
+
+    <ul class="menu">
+        <li>Опція A</li>
+        <li>Опція B</li>
+        <li>Опція C</li>
+    </ul>
+    
+    <footer>
+        <div class="small">
+            <p>
+                **Ім'я автора:** Gemini AI | **Дата:** Листопад 2025 | **Адреса сторінки:** lab9.html
+            </p>
+            <p>
+                Це невелике інформаційне повідомлення, оформлене за допомогою класу `.small`. 
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
