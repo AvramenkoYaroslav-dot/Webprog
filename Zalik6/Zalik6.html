@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практичне завдання: Bootstrap 4 (1200px)</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        /* 1. Скидання та Вимога 2: Заповнення простору */
+        .row { margin: 0; }
+        .container { 
+            width: 100%;
+            max-width: 800px; /* Обмеження ширини контейнера для демонстрації */
+            padding: 0;
+            margin: 20px auto; 
+        }
+
+        /* 2. Загальні стилі для блоків */
+        .custom-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+            /* Вимога 4: рамка 1px сірого або світло-сірого кольору */
+            border: 1px solid #cccccc; 
+            min-height: 150px;
+        }
+
+        /* 3. Вимога 3: Кольори блоків */
+        .bg-blue-custom { background-color: #3f83c1 !important; } /* #1 Синій */
+        .bg-yellow-custom { background-color: #ffc400 !important; } /* #2 Жовтий */
+        .bg-red-custom { background-color: #c4383c !important; } /* #3 Червоний */
+        
+        /* Додаткові стилі для мобільного вигляду (<1200px) */
+        @media (max-width: 1199.99px) {
+            .custom-block {
+                min-height: 120px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-12 col-xl-12 p-0"> 
+                <div class="custom-block bg-blue-custom">#1</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-xl-6 p-0"> 
+                <div class="custom-block bg-yellow-custom">#2</div>
+            </div>
+
+            <div class="col-12 col-xl-6 p-0"> 
+                <div class="custom-block bg-red-custom">#3</div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
