@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практичне завдання №1: Адаптивний Flexbox (Весь код разом)</title>
+    
+    <style>
+        /* 1. Скидання стандартних стилів для коректного відображення */
+        * {
+            /* Вимога: Блоки повинні повністю заповнювати весь вільний простір екрану */
+            box-sizing: border-box; 
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex; /* Для центрування головного контейнера (якщо він менший за екран) */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+
+        /* 2. Стилі для головного Flex-контейнера */
+        .main-container {
+            display: flex;
+            /* Дозволяє блокам #2 та #3 переноситися під #1 у ПК-версії */
+            flex-wrap: wrap; 
+            /* Вимога: Блоки повинні повністю заповнювати весь вільний простір. */
+            width: 100%; 
+            max-width: 800px; /* Обмеження ширини для кращої демонстрації на великих екранах */
+            min-height: 300px; 
+            /* Вимога: Всі елементи знаходяться в головному блоці */
+        }
+
+        /* 3. Базові стилі для всіх блоків (для ПК-версії, ≥ 1200px) */
+        .block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            /* Вимога: Рамка у блоків повинна бути 1px сірого або світло-сірого кольору. */
+            border: 1px solid #cccccc; 
+            flex-grow: 1; /* Вимога: Блоки повинні повністю заповнювати весь вільний простір. */
+            min-height: 150px; /* Висота для ПК-версії */
+        }
+
+        /* 4. Специфічні стилі та кольори для ПК-версії (≥1200px) */
+        /* ПК-версія (Десктопний макет): #1 зверху, #2 та #3 поруч */
+        
+        .block-1 {
+            background-color: #3f83c1; /* Синій */
+            /* Займає 100% ширини, тому переноситься на окремий рядок */
+            flex-basis: 100%; 
+        }
+
+        .block-2 {
+            background-color: #ffc400; /* Жовтий */
+            /* Займає 50% від ширини контейнера разом з #3 */
+            flex-basis: 50%; 
+        }
+
+        .block-3 {
+            background-color: #c4383c; /* Червоний */
+            /* Займає 50% від ширини контейнера разом з #2 */
+            flex-basis: 50%; 
+        }
+
+        /* 5. Адаптація для мобільної версії (<1200px) */
+
+        @media (max-width: 1199.99px) {
+            
+            .main-container {
+                /* Змінюємо напрямок flex-елементів на колонку */
+                flex-direction: column; 
+                max-width: 400px; /* Обмеження ширини для моб. демонстрації */
+            }
+            
+            .block {
+                /* Кожен блок займає 100% ширини і розташовується вертикально */
+                flex-basis: 100%;
+                min-height: 120px; /* Висота для мобільної версії */
+            }
+            
+            /* Кольори блоків для мобільної версії (залишаються такими ж, як і на ПК-макеті, 
+               але для демонстрації використання @media, ми їх повторюємо,
+               якщо б вони мали відрізнятися) */
+            .block-1 {
+                background-color: #3f83c1; 
+            }
+
+            .block-2 {
+                background-color: #ffc400; 
+            }
+
+            .block-3 {
+                background-color: #c4383c; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="block block-1">
+            <p>#1</p>
+        </div>
+        <div class="block block-2">
+            <p>#2</p>
+        </div>
+        <div class="block block-3">
+            <p>#3</p>
+        </div>
+    </div>
+</body>
+</html>
