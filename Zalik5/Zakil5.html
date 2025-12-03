@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Практичне завдання: CSS Grid (768px)</title>
+    <title>Практичне завдання: Адаптивний CSS Grid (Кастомний @media)</title>
     
     <style>
-        /* 1. Скидання стандартних стилів та Вимога 2: Заповнення простору */
+        /* 1. Скидання стандартних стилів та Вимога: Блоки повинні повністю заповнювати весь вільний простір екрану */
         * {
             box-sizing: border-box; 
             margin: 0;
@@ -14,27 +14,18 @@
         }
 
         html, body {
-            height: 100%;
+            height: 100%; /* Ключ до заповнення висоти */
         }
 
-        body {
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: sans-serif;
-            padding: 20px;
-        }
-
-        /* Вимога 1: Головний блок та Вимога 2: Заповнення простору */
+        /* 2. Стилі для головного Grid-контейнера */
+        /* 1. Вимога: Всі елементи знаходяться в головному блоці */
         .main-container {
             display: grid;
-            width: 100%; 
-            max-width: 800px; /* Обмеження ширини для кращої демонстрації */
-            min-height: 300px; 
+            width: 100%;
+            height: 100%; /* Займає 100% висоти body */
         }
 
-        /* 2. Базові стилі для всіх блоків */
+        /* 3. Базові стилі та рамки */
         .block {
             display: flex;
             justify-content: center;
@@ -42,77 +33,74 @@
             font-size: 30px;
             font-weight: bold;
             color: white;
-            /* Вимога 4: Рамка 1px сірого або світло-сірого кольору */
+            text-align: center;
+            /* Вимога: Рамка 1px сірого або світло-сірого кольору */
             border: 1px solid #cccccc; 
-            min-height: 150px; 
+            transition: all 0.3s ease;
         }
 
-        /* 3. Вимога 3: Кольори блоків */
+        /* 4. Вимога: Колір блоків відповідно до зразку */
         .block-1 { background-color: #3f83c1; } /* Синій */
         .block-2 { background-color: #ffc400; } /* Жовтий */
         .block-3 { background-color: #c4383c; } /* Червоний */
 
 
-        /* 4. Вимога 5: Адаптація для розмірів екрану (≥768px) */
-        
-        /* === DESKTOP VIEW (≥768px) === */
-        @media (min-width: 768px) {
-            
-            .main-container {
-                /* Створення колонок 6-3-3: 50% (6 колонок), 25% (3 колонки), 25% (3 колонки) */
-                grid-template-columns: 6fr 3fr 3fr; 
-                grid-template-rows: 1fr; /* Всі блоки в одному ряду */
-            }
-
-            /* Розміщення блоків у Grid для ПК-версії */
-            /* #1: Займає перші 6/12 частин (50%) */
-            .block-1 {
-                grid-column: 1 / 2; /* Починається з лінії 1, закінчується лінією 2 */
-                grid-row: 1;
-            }
-
-            /* #2: Займає наступні 3/12 частин (25%) */
-            .block-2 {
-                grid-column: 2 / 3;
-                grid-row: 1;
-            }
-
-            /* #3: Займає останні 3/12 частин (25%) */
-            .block-3 {
-                grid-column: 3 / 4;
-                grid-row: 1;
-            }
-        }
-
-
-        /* 5. Вимога 5: Адаптація для розмірів екрану (<768px) */
-
-        /* === MOBILE VIEW (<768px) === */
+        /* 5. Власне CSS правило @media для мобільної версії (< 768px) */
         @media (max-width: 767.99px) {
             
+            /* Мобільна версія: Блоки розташовані вертикально (одна колонка) */
             .main-container {
-                /* Створення однієї колонки (вертикальне розташування) */
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Одна колонка */
+                /* Забезпечуємо рівномірне заповнення висоти (1/3 для кожного) */
+                grid-template-rows: repeat(3, 1fr); 
+            }
+            
+            .block {
+                min-height: auto;
+                font-size: 24px;
+            }
+            /* Встановлюємо порядок, хоча він за замовчуванням правильний */
+            .block-1 { grid-row: 1; }
+            .block-2 { grid-row: 2; }
+            .block-3 { grid-row: 3; }
+        }
+
+        /* 6. Власне CSS правило @media для ПК версії (>= 768px) */
+        @media (min-width: 768px) {
+            
+            /* ПК версія: Блоки розташовані горизонтально (три рівні колонки) */
+            .main-container {
+                grid-template-columns: repeat(3, 1fr); /* Три рівні колонки */
+                grid-template-rows: 1fr; /* Один рядок, який займає всю висоту */
             }
 
-            /* Розміщення блоків по порядку: #1, #2, #3 (за замовчуванням) */
-            .block-1 { grid-row: 1; grid-column: 1; min-height: 120px; }
-            .block-2 { grid-row: 2; grid-column: 1; min-height: 120px; }
-            .block-3 { grid-row: 3; grid-column: 1; min-height: 120px; }
+            .block {
+                min-height: auto;
+                font-size: 36px;
+            }
+            
+            /* Встановлюємо горизонтальне розміщення в один рядок */
+            .block-1 { grid-column: 1 / 2; grid-row: 1; }
+            .block-2 { grid-column: 2 / 3; grid-row: 1; }
+            .block-3 { grid-column: 3 / 4; grid-row: 1; }
         }
     </style>
 </head>
 <body>
+    
     <div class="main-container">
+        
         <div class="block block-1">
-            <p>#1</p>
+            #1
         </div>
         <div class="block block-2">
-            <p>#2</p>
+            #2
         </div>
         <div class="block block-3">
-            <p>#3</p>
+            #3
         </div>
+        
     </div>
+
 </body>
 </html>
