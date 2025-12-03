@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="uk">
-<head>
+<html lang="uk" class="h-100"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Практичне завдання 3: Bootstrap 4 (Виправлений макет)</title>
+    <title>Практичне завдання 3: Bootstrap 4 (Весь екран)</title>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
     <style>
-        /* Спеціальні стилі, що відповідають вимогам завдання */
+        /* 1. Налаштування висоти для повного заповнення екрану */
+        html, body {
+            height: 100%;
+        }
+
+        /* Стилі для блоків */
         .custom-block {
             display: flex;
             justify-content: center;
@@ -16,45 +20,55 @@
             font-size: 30px;
             font-weight: bold;
             color: white;
-            /* Вимога 4: Рамка 1px сірого кольору */
             border: 1px solid #cccccc; 
-            min-height: 150px;
+            /* min-height видалено, оскільки висота керується Bootstrap'ом та row */
         }
 
-        /* Вимога 3: Кольори блоків */
+        /* Кольори блоків */
         .bg-blue-custom { background-color: #3f83c1 !important; } /* Синій (#1) */
         .bg-yellow-custom { background-color: #ffc400 !important; } /* Жовтий (#2) */
         .bg-red-custom { background-color: #c4383c !important; } /* Червоний (#3) */
 
-        /* Видалення стандартних зовнішніх відступів .row для акуратного вигляду */
-        .row { margin: 0; }
-        
-        /* Вимога 2: Блоки повинні повністю заповнювати весь вільний простір екрану */
-        /* Використовуємо .h-100 для контейнера (необов'язково, але покращує вигляд) */
-        html, body {
-            height: 100%;
+        /* Забезпечення, що рядки (row) займають 100% висоти та використовують flex */
+        .full-height-row {
+            min-height: 100%;
+            /* Використовуємо flex-fill для блоків #2 та #3 на ПК-версії */
+            display: flex; 
+            flex-wrap: wrap; 
+        }
+
+        /* Висота блоків на мобільному (col-12) */
+        @media (max-width: 575.98px) {
+            .custom-block {
+                /* Кожен блок займає 1/3 висоти екрану на мобільному */
+                min-height: 33.33vh; 
+            }
         }
     </style>
 </head>
-<body>
-    
-    <div class="container my-4" style="max-width: 800px;">
+<body class="h-100"> <div class="container-fluid h-100 p-0">
         
         <div class="row">
+            <div class="col-12 p-0"> 
+                <div class="custom-block bg-blue-custom" style="min-height: 30vh;">#1</div>
+            </div>
+        </div>
+        
+        <div class="row full-height-row">
             
             <div class="col-12 col-sm-6 p-0"> 
-                <div class="custom-block bg-blue-custom">#1</div>
+                <div class="custom-block bg-yellow-custom h-100">#2</div>
             </div>
 
-            <div class="col-12 col-sm-3 p-0"> 
-                <div class="custom-block bg-yellow-custom">#2</div>
-            </div>
-
-            <div class="col-12 col-sm-3 p-0"> 
-                <div class="custom-block bg-red-custom">#3</div>
+            <div class="col-12 col-sm-6 p-0"> 
+                <div class="custom-block bg-red-custom h-100">#3</div>
             </div>
             
-        </div> </div> <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        </div>
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
