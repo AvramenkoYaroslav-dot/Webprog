@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практичне завдання 3: Bootstrap 4 (Адаптація 520px)</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        /* 1. Вимога 2: Блоки повинні повністю заповнювати весь вільний простір. */
+        * { box-sizing: border-box; }
+        .row { margin: 0; }
+        .container { 
+            width: 100%;
+            max-width: 800px; 
+            padding: 0;
+            margin: 20px auto; /* Додамо зовнішній відступ */
+        }
+
+        /* 2. Загальні стилі для блоків */
+        .custom-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+            /* Вимога 4: Рамка 1px сірого кольору */
+            border: 1px solid #cccccc; 
+            min-height: 150px;
+        }
+
+        /* 3. Вимога 3: Кольори блоків */
+        .bg-blue-custom { background-color: #3f83c1 !important; } /* #1 Синій */
+        .bg-yellow-custom { background-color: #ffc400 !important; } /* #2 Жовтий */
+        .bg-red-custom { background-color: #c4383c !important; } /* #3 Червоний */
+
+
+        /* 4. Вимога 5: Адаптація для розмірів екрану (<520px та ≥520px) */
+        
+        /* === MOBILE VIEW (<520px) === */
+        @media (max-width: 519.99px) {
+            /* Примушуємо всі колонки займати 100% ширини, незалежно від класів col-sm-* */
+            .col-sm-6, .col-sm-3 {
+                flex: 0 0 100%; /* Вимкнути гнучкість, встановити 100% ширини */
+                max-width: 100%;
+            }
+            .custom-block {
+                min-height: 120px;
+            }
+        }
+        
+        /* === DESKTOP VIEW (≥520px) === */
+        @media (min-width: 520px) {
+            /* Забезпечуємо, що макет 6-3-3 буде працювати правильно
+               від 520px до 575.99px, поки не почне діяти col-sm-* Bootstrap.
+               Цей блок гарантує, що сітка 6-3-3 працює від 520px. */
+               
+            /* Перевизначаємо col-12, щоб він поводився як col-6, col-3 тощо, 
+               якщо у нього немає класу col-sm-* (хоча тут ми використовуємо col-sm-*) */
+               
+            .col-12 {
+                /* Забезпечуємо, що 6-3-3 працює від 520px */
+                /* Bootstrap col-sm-6, col-sm-3 вже справляються з цим завданням 
+                   починаючи з 576px. Нам потрібно лише змінити поведінку у діапазоні 520px - 575.99px. 
+                   Оскільки Bootstrap використовує мобільний-перший підхід, 
+                   col-12 (100% ширини) діє до 576px. 
+                   Ми можемо використати flex-basis для заміни. */
+                   
+                /* #1: 6 колонок */
+                .col-sm-6 { flex: 0 0 50%; max-width: 50%; } 
+                /* #2 та #3: 3 колонки */
+                .col-sm-3 { flex: 0 0 25%; max-width: 25%; } 
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        
+        <div class="row">
+            
+            <div class="col-12 col-sm-6 p-0"> 
+                <div class="custom-block bg-blue-custom">#1</div>
+            </div>
+
+            <div class="col-12 col-sm-3 p-0"> 
+                <div class="custom-block bg-yellow-custom">#2</div>
+            </div>
+
+            <div class="col-12 col-sm-3 p-0"> 
+                <div class="custom-block bg-red-custom">#3</div>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
