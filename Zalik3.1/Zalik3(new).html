@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Практичне завдання: Адаптивний Bootstrap (1 над 2+3)</title>
+    <title>Практичне завдання №3: Макет 6 | 3 | 3</title>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
@@ -23,44 +23,37 @@
             color: white;
             /* Вимога: Рамка 1px сірого або світло-сірого кольору */
             border: 1px solid #cccccc; 
-            min-height: 150px; /* Базова висота для #1 */
         }
 
-        /* 3. Вимога: Колір блоків відповідно до зразка */
+        /* 3. Вимога: Колір блоків відповідно до зразку */
         .bg-blue-custom { background-color: #3f83c1 !important; } /* Синій (#1) */
         .bg-yellow-custom { background-color: #ffc400 !important; } /* Жовтий (#2) */
         .bg-red-custom { background-color: #c4383c !important; } /* Червоний (#3) */
 
-        /* Для усунення стандартних зовнішніх відступів .row */
+        /* Для усунення стандартних зовнішніх відступів .row та забезпечення 100% висоти */
         .row { 
             margin-left: 0; 
             margin-right: 0; 
         }
 
-        /* 4. Власне правило @media для мобільної версії (< 576px) */
+        /* Клас, що змушує рядок заповнювати 100% висоти свого батька (екрану) */
+        .main-row {
+            height: 100%;
+            display: flex; 
+            flex-wrap: wrap; 
+        }
+
+        /* Мобільна версія (< 576px): Всі блоки займають 1/3 висоти екрану */
         @media (max-width: 575.98px) {
             .custom-block {
-                /* На мобільному всі блоки йдуть вертикально і мають рівну висоту */
                 min-height: 33.33vh; /* Кожен блок займає 1/3 висоти viewport */
             }
         }
-        
-        /* 5. Власне правило @media для ПК версії (>= 576px) */
-        @media (min-width: 576px) {
-            
-            /* Блок #1: Фіксована висота (наприклад, 30% висоти екрану) */
-            .block-1-row {
-                /* min-height: 30vh; */ /* Можна задати фіксовану висоту тут */
-            }
 
-            /* Рядок з #2 та #3: Займає весь вільний простір */
-            .row-2-3 {
-                height: 100%; /* Розтягується на 100% висоти свого flex-батька */
-            }
-            
-            /* Блоки #2 та #3 розтягуються на 100% висоти свого ряду */
-            .col-sm-6 > .custom-block {
-                height: 100%; 
+        /* ПК версія (>= 576px): Блоки заповнюють 100% висоти рядка */
+        @media (min-width: 576px) {
+            .custom-block {
+                height: 100%; /* Розтягує блок на повну висоту row */
                 min-height: auto;
             }
         }
@@ -69,25 +62,23 @@
 </head>
 <body class="h-100">
 
-    <div class="container-fluid d-flex flex-column h-100 p-0">
+    <div class="container-fluid d-flex h-100 p-0">
         
-        <div class="row block-1-row">
-            <div class="col-12 p-0"> 
+        <div class="row main-row flex-grow-1">
+            
+            <div class="col-12 col-sm-6 p-0"> 
                 <div class="custom-block bg-blue-custom">
                     #1
                 </div>
             </div>
-        </div>
-        
-        <div class="row row-2-3 flex-grow-1">
-            
-            <div class="col-12 col-sm-6 p-0"> 
+
+            <div class="col-12 col-sm-3 p-0"> 
                 <div class="custom-block bg-yellow-custom">
                     #2
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 p-0"> 
+            <div class="col-12 col-sm-3 p-0"> 
                 <div class="custom-block bg-red-custom">
                     #3
                 </div>
