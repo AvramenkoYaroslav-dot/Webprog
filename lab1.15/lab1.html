@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Практика JavaScript: Цикли та Умови</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        button { margin: 5px 0; padding: 10px 15px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+        hr { margin: 20px 0; border: 0; border-top: 1px solid #eee; }
+        #output { background: #e9ecef; padding: 10px; border-radius: 4px; min-height: 50px; white-space: pre-line; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Практична робота: JavaScript</h1>
+    <p>Натисніть на кнопку, щоб запустити відповідне завдання:</p>
+
+    <button onclick="task1()">1. Прості числа (0-100)</button><br>
+    <button onclick="task2()">2. Парні/Непарні (0-10)</button><br>
+    <button onclick="task3()">3. Ділення 10000</button><br>
+    <button onclick="task4()">4. Пори року (Prompt/Alert)</button><br>
+    <button onclick="task5()">5. Цельсій у Фаренгейт</button><br>
+    <button onclick="task6()">6. День тижня</button>
+
+    <hr>
+    <h3>Результат виконання:</h3>
+    <div id="output">Тут з'явиться результат (для завдань 1, 2, 3 та 6)</div>
+</div>
+
+<script>
+    const out = document.getElementById('output');
+
+    // 1. Прості числа
+    function task1() {
+        let res = "Прості числа: ";
+        let num = 2;
+        while (num <= 100) {
+            let isPrime = true;
+            let i = 2;
+            while (i <= Math.sqrt(num)) {
+                if (num % i === 0) {
+                    isPrime = false;
+                    break;
+                }
+                i++;
+            }
+            if (isPrime) res += num + " ";
+            num++;
+        }
+        out.innerText = res;
+    }
+
+    // 2. Do...while парність
+    function task2() {
+        let res = "";
+        let j = 0;
+        do {
+            if (j === 0) res += j + " це нуль\n";
+            else if (j % 2 === 0) res += j + " - парне число\n";
+            else res += j + " - непарне число\n";
+            j++;
+        } while (j <= 10);
+        out.innerText = res;
+    }
+
+    // 3. Ділення 10000
+    function task3() {
+        let result = 10000;
+        let counter = 0;
+        while (result >= 50) {
+            result /= 2;
+            counter++;
+        }
+        console.log("Результат:", result, "Ітерацій:", counter);
+        out.innerText = `Результат: ${result}\nКількість ітерацій: ${counter}\n(Також продубльовано в консоль)`;
+    }
+
+    // 4. Пори року
+    function task4() {
+        let month = parseInt(prompt("Введіть номер місяця (1-12):"));
+        let season, monthName;
+        
+        if (month >= 1 && month <= 12) {
+            const months = [
+                "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
+                "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"
+            ];
+            monthName = months[month - 1];
+            
+            if (month === 12 || month <= 2) season = "Зима";
+            else if (month <= 5) season = "Весна";
+            else if (month <= 8) season = "Літо";
+            else season = "Осінь";
+
+            alert(`Місяць: ${monthName}\nПора року: ${season}`);
+        } else {
+            alert("Помилка: введіть число від 1 до 12");
+        }
+    }
+
+    // 5. Конвертер
+    function task5() {
+        let tc = parseFloat(prompt("Введіть температуру в °C:"));
+        if (!isNaN(tc)) {
+            let tf = (9 / 5) * tc + 32;
+            alert(`${tc}°C = ${tf.toFixed(1)}°F`);
+        }
+    }
+
+    // 6. День тижня
+    function task6() {
+        let day = prompt("Введіть номер дня (1-7):");
+        const days = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"];
+        let idx = parseInt(day) - 1;
+        
+        if (idx >= 0 && idx < 7) {
+            out.innerHTML = "<strong>Ви обрали: " + days[idx] + "</strong>";
+        } else {
+            out.innerText = "Помилка: число має бути від 1 до 7";
+        }
+    }
+</script>
+
+</body>
+</html>
