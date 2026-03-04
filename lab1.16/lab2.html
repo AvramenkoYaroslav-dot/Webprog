@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Браузерний JavaScript: Події та DOM</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        section { margin-bottom: 40px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .box { width: 100px; height: 100px; display: inline-block; margin: 10px; border: 2px solid #333; cursor: pointer; background-color: lightgray; }
+        img { margin: 5px; cursor: pointer; border: 1px solid #ccc; }
+        .clickable-p { cursor: pointer; padding: 5px; background: #f9f9f9; width: fit-content; margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+    <section>
+        <h2>Завдання 1: Атрибут width у консоль</h2>
+        <img src="https://picsum.photos/300/300?random=1" width="300" height="300" alt="img1" class="task1-img">
+        <img src="https://picsum.photos/300/300?random=2" width="300" height="300" alt="img2" class="task1-img">
+        <img src="https://picsum.photos/300/300?random=3" width="300" height="300" alt="img3" class="task1-img">
+    </section>
+
+    <section>
+        <h2>Завдання 2: href у title при наведенні</h2>
+        <a href="https://google.com" class="task2-link">Google</a> | 
+        <a href="https://github.com" class="task2-link">GitHub</a> | 
+        <a href="https://developer.mozilla.org" class="task2-link">MDN</a>
+    </section>
+
+    <section>
+        <h2>Завдання 3 та 4: Робота з Input</h2>
+        <input type="text" value="Текст 1" class="task3-input">
+        <input type="text" value="Текст 2" class="task3-input">
+        <input type="text" value="Текст 3" class="task3-input">
+        <p>Результат (Завдання 3): <b id="demo">---</b></p>
+    </section>
+
+    <section>
+        <h2>Завдання 5: Квадрати чисел</h2>
+        <p class="number-p" data-value="5">П'ять (клікніть, щоб побачити 25)</p>
+        <p class="number-p" data-value="9">Дев'ять (клікніть, щоб побачити 81)</p>
+        <p class="number-p" data-value="12">Дванадцять (клікніть, щоб побачити 144)</p>
+    </section>
+
+    <section>
+        <h2>Завдання 2 (Частина 2): Чергування кольорів</h2>
+        <div class="color-box box"></div>
+        <div class="color-box box"></div>
+        <div class="color-box box"></div>
+        <p><small>*Перший клік — червоний, другий — зелений (через removeEventListener)</small></p>
+    </section>
+
+    <script>
+        // --- ЗАВДАННЯ 1 ---
+        const images = document.querySelectorAll('.task1-img');
+        images.forEach(img => {
+            img.onclick = function() {
+                console.log("Ширина картинки:", this.getAttribute('width'));
+            };
+        });
+
+        // --- ЗАВДАННЯ 2 ---
+        const links = document.querySelectorAll('.task2-link');
+        function addTitle() {
+            this.title = this.href;
+        }
+        links.forEach(link => {
+            link.addEventListener('mouseover', addTitle);
+        });
+
+        // --- ЗАВДАННЯ 3 та 4 ---
+        const inputs = document.querySelectorAll('.task3-input');
+        const demoParagraph = document.getElementById('demo');
+
+        inputs.forEach(input => {
+            // Завдання 3: Вивід у параграф #demo
+            input.addEventListener('click', function() {
+                demoParagraph.innerText = this.value;
+            });
+
+            // Завдання 4: Перший клік у консоль, наступні в alert
+            function firstClick() {
+                console.log("Перше натискання (Console):", this.value);
+                this.removeEventListener('click', firstClick); // Видаляємо цей обробник
+                this.addEventListener('click', secondClick);  // Додаємо новий
+            }
+
+            function secondClick() {
+                alert("Повторне натискання (Alert): " + this.value);
+            }
+
+            input.addEventListener('click', firstClick);
+        });
+
+        // --- ЗАВДАННЯ 5 ---
+        const numParagraphs = document.querySelectorAll('.number-p');
+        numParagraphs.forEach(p => {
+            p.addEventListener('click', function() {
+                let val = parseInt(this.getAttribute('data-value'));
+                this.innerText = val * val;
+            });
+        });
+
+        // --- ЗАВДАННЯ 2.1 (Чергування кольорів) ---
+        const colorBoxes = document.querySelectorAll('.color-box');
+
+        function setRed() {
+            this.style.backgroundColor = 'red';
+            this.removeEventListener('click', setRed);
+            this.addEventListener('click', setGreen);
+        }
+
+        function setGreen() {
+            this.style.backgroundColor = 'green';
+            this.removeEventListener('click', setGreen);
+            this.addEventListener('click', setRed);
+        }
+
+        colorBoxes.forEach(box => {
+            box.addEventListener('click', setRed);
+        });
+    </script>
+</body>
+</html>
