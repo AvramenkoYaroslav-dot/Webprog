@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Практика: Функції та Масиви</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 10px; }
+        .task-section { margin-bottom: 20px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; transition: 0.3s; }
+        .task-section:hover { background-color: #f8f9fa; }
+        button { background-color: #1a73e8; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 14px; margin-top: 10px; }
+        button:hover { background-color: #1557b0; }
+        pre { background: #272c34; color: #abb2bf; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 13px; }
+        .result { margin-top: 10px; font-weight: bold; color: #d93025; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Лабораторна робота: Функції та Масиви</h1>
+
+    <div class="task-section">
+        <h3>1-2. Seconds & Perimeter</h3>
+        <button onclick="runTask1_2()">Виконати</button>
+        <div id="res1_2" class="result"></div>
+    </div>
+
+    <div class="task-section">
+        <h3>3. FizzBuzz (результат у консолі)</h3>
+        <button onclick="fizzBuzz(15)">Запустити FizzBuzz(15)</button>
+    </div>
+
+    <div class="task-section">
+        <h3>5. isDivisible (Три способи)</h3>
+        <button onclick="runTask5()">Перевірити (12, 3, 4)</button>
+        <div id="res5" class="result"></div>
+    </div>
+
+    <div class="task-section">
+        <h3>6. Аналіз масиву (N елементів)</h3>
+        <button onclick="analyzeArray(10)">Генерувати масив (10)</button>
+        <div id="res6" class="result"></div>
+    </div>
+
+    <div class="task-section">
+        <h3>7. Матриця 5х5 (Діагональ)</h3>
+        <button onclick="processMatrix()">Обробити матрицю</button>
+        <div id="res7" class="result"></div>
+    </div>
+
+    <div class="task-section">
+        <h3>8. Арифметичні операції</h3>
+        <button onclick="userCalculator()">Відкрити калькулятор</button>
+    </div>
+
+    <div class="task-section">
+        <h3>10. Трансформація масиву (Реверс + Квадрати)</h3>
+        <button onclick="runTask10()">Трансформувати [1, 'test', 3, 4]</button>
+        <div id="res10" class="result"></div>
+    </div>
+
+    <div class="task-section">
+        <h3>11. Видалення дублікатів</h3>
+        <button onclick="runTask11()">Очистити [1, 2, 2, 4, 5, 4, 7]</button>
+        <div id="res11" class="result"></div>
+    </div>
+</div>
+
+<script>
+    // 1. Seconds
+    const seconds = (total) => total % 60;
+    // 2. Perimeter
+    const perimeter = (side, count) => side * count;
+
+    function runTask1_2() {
+        const s = seconds(125);
+        const p = perimeter(10, 5);
+        document.getElementById('res1_2').innerText = `Залишок від 125 сек: ${s}с\nПериметр (ст. 10, к-ть 5): ${p}`;
+    }
+
+    // 3. FizzBuzz
+    function fizzBuzz(n) {
+        console.log("--- FizzBuzz Start ---");
+        for (let i = 1; i <= n; i++) {
+            if (i % 3 === 0 && i % 5 === 0) console.log("fizzbuzz");
+            else if (i % 3 === 0) console.log("fizz");
+            else if (i % 5 === 0) console.log("buzz");
+            else console.log(i);
+        }
+        alert("Результат FizzBuzz виведено у консоль (F12)!");
+    }
+
+    // 5. isDivisible
+    const isDivisibleIf = (n, x, y) => { if (n % x === 0 && n % y === 0) return true; else return false; };
+    const isDivisibleTernary = (n, x, y) => (n % x === 0 && n % y === 0) ? true : false;
+    const isDivisiblePure = (n, x, y) => n % x === 0 && n % y === 0;
+
+    function runTask5() {
+        const r1 = isDivisibleIf(12, 3, 4);
+        const r2 = isDivisibleTernary(12, 3, 4);
+        const r3 = isDivisiblePure(12, 3, 4);
+        document.getElementById('res5').innerText = `If: ${r1}, Ternary: ${r2}, Pure: ${r3}`;
+    }
+
+    // 6. Аналіз масиву
+    function analyzeArray(n) {
+        const arr = Array.from({ length: n }, () => Math.floor(Math.random() * 50));
+        const max = Math.max(...arr);
+        const min = Math.min(...arr);
+        const sum = arr.reduce((a, b) => a + b, 0);
+        const odds = arr.filter(x => x % 2 !== 0);
+        document.getElementById('res6').innerText = `Масив: [${arr}]\nMax: ${max}, Min: ${min}\nСума: ${sum}, Непарні: [${odds}]`;
+    }
+
+    // 7. Матриця
+    function processMatrix() {
+        let matrix = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => Math.floor(Math.random() * 21) - 10));
+        let report = "До:\n" + matrix.map(row => row.join('\t')).join('\n');
+        
+        for (let i = 0; i < 5; i++) {
+            if (matrix[i][i] < 0) matrix[i][i] = 0;
+            else if (matrix[i][i] > 0) matrix[i][i] = 1;
+        }
+        
+        report += "\n\nПісля (діагональ):\n" + matrix.map(row => row.join('\t')).join('\n');
+        document.getElementById('res7').innerText = report;
+    }
+
+    // 8. Калькулятор
+    const add = (a, b) => alert(`Сума: ${a + b}`);
+    const sub = (a, b) => alert(`Різниця: ${a - b}`);
+    const mul = (a, b) => alert(`Добуток: ${a * b}`);
+    const div = (a, b) => b === 0 ? alert("Ділення на нуль!") : alert(`Частка: ${a / b}`);
+
+    function userCalculator() {
+        const n1 = parseFloat(prompt("Число 1:"));
+        const n2 = parseFloat(prompt("Число 2:"));
+        const op = prompt("Дія (+, -, *, /):");
+        if (op === '+') add(n1, n2);
+        else if (op === '-') sub(n1, n2);
+        else if (op === '*') mul(n1, n2);
+        else if (op === '/') div(n1, n2);
+    }
+
+    // 10. Трансформація
+    function transformArray(arr) {
+        return [...arr].reverse().map(x => typeof x === 'number' ? x ** 2 : x);
+    }
+    function runTask10() {
+        const res = transformArray([1, 'test', 3, 4]);
+        document.getElementById('res10').innerText = `Результат: [${res}]`;
+    }
+
+    // 11. Дублікати
+    function removeDuplicates(arr) { return [...new Set(arr)]; }
+    function runTask11() {
+        const res = removeDuplicates([1, 2, 2, 4, 5, 4, 7, 8, 7, 3, 6]);
+        document.getElementById('res11').innerText = `Без дублікатів: [${res}]`;
+    }
+</script>
+
+</body>
+</html>
