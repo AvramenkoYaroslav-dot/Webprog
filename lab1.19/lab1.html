@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Заняття 17: Рядки, Дати та Math</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 5px; margin: 10px; }
+        button:hover { background: #218838; }
+        #time-display { font-family: monospace; font-size: 1.2rem; color: #333; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Практика: Рядки та Об'єкти</h2>
+    <div id="time-display">Натисніть кнопку, щоб побачити час</div>
+    <button onclick="displayCurrentTime()">1. Вивести час</button>
+    <button onclick="startGame()">2. Грати в "Вгадай число"</button>
+</div>
+
+<script>
+    // --- ЗАВДАННЯ 1: Форматування дати та часу ---
+    function displayCurrentTime() {
+        const now = new Date();
+        
+        // Масиви для назв (для локалізації)
+        const days = ["неділя", "понеділок", "вівторок", "середа", "четвер", "п'ятниця", "субота"];
+        const months = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
+
+        // Форматування з додаванням нуля (padStart)
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
+        
+        const dayName = days[now.getDay()];
+        const dayNum = String(now.getDate()).padStart(2, '0');
+        const monthName = months[now.getMonth()];
+        const year = now.getFullYear();
+
+        const result = `${hh}:${mm}:${ss}, ${dayName}, ${dayNum} ${monthName} ${year} року`;
+        
+        console.log(result);
+        document.getElementById('time-display').innerText = result;
+    }
+
+    // Допоміжна функція для логування спроб у консоль (Завдання 2)
+    function logAttempt(attempt, num, isCorrect) {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('uk-UA') + " " + now.toLocaleTimeString('uk-UA');
+        const status = isCorrect ? "вірно" : "не вірно";
+        console.log(`${dateStr} Спроба ${attempt}: число ${num} – ${status}`);
+    }
+
+    // --- ЗАВДАННЯ 2: Гра "Вгадай число" ---
+    function startGame() {
+        let playAgain = true;
+
+        while (playAgain) {
+            const targetNumber = Math.floor(Math.random() * 51); // 0-50
+            let attempts = 0;
+            let guessed = false;
+
+            while (!guessed) {
+                let userInput = prompt("Вгадайте число від 0 до 50:");
+                
+                // Якщо користувач натиснув "Скасувати"
+                if (userInput === null) return; 
+
+                let userNum = parseInt(userInput);
+                attempts++;
+
+                if (userNum === targetNumber) {
+                    logAttempt(attempts, userNum, true);
+                    alert(`За ${attempts} спроб ви вгадали число ${targetNumber}`);
+                    guessed = true;
+                } else {
+                    logAttempt(attempts, userNum, false);
+                    
+                    const diff = Math.abs(targetNumber - userNum);
+                    let hint = "";
+
+                    // Логіка підказок
+                    if (diff > 20) hint = "Холодно";
+                    else if (diff > 10) hint = "Тепло";
+                    else hint = "Гаряче";
+
+                    alert(`${hint}! Ви відхилилися від цілі. Спробуйте ще раз.`);
+                }
+            }
+            playAgain = confirm("Бажаєте зіграти ще раз?");
+        }
+    }
+</script>
+
+</body>
+</html>
